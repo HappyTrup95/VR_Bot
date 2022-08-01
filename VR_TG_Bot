@@ -1,0 +1,25 @@
+import telebot
+from telebot import types
+
+#Подвәзываем скрипт к боту через токен
+bot =telebot.TeleBot('5547286901:AAHQcefdvwh5KVALdNmjosBKPYLaYXjDpf0')
+
+#Запускаем бота 
+@bot.message_handler(commands=["start"])
+
+#Создаем кнопки выбора
+def start(m,res=False):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard= True)
+    item1 = types.KeyboardButton("Подбор запчастей")
+    item2 = types.KeyboardButton("Автосервис")
+    item3 = types.KeyboardButton("Кузовной ремонт")
+    item4 = types.KeyboardButton("Автостраховка")
+    item5 = types.KeyboardButton("Позвать оператора")
+    markup.add(item1)
+    markup.add(item2)
+    markup.add(item3)
+    markup.add(item4)
+    markup.add(item5)
+    bot.send_message(m.chat.id, 'Нажмите: \nКуда хотите перейти', reply_markup=markup)
+
+bot.polling(none_stop=True, interval=0)
