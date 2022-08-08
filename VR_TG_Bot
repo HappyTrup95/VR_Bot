@@ -1,17 +1,27 @@
 import telebot
 from telebot import types
 import pandas as pd
-
-user=list()
-
-def user_information(parametr,userid):
-    user_infor = pd.read_csv("user_table.csv")
-    if userid == user_infor.iloc[:]:
-        bot.send_message("Криво накодил, брат")
-    else:
-        bot.send_message("Укажите свой номер телефона в формате +79999999999")
+import VR_Bot_Zapch
 
 
+
+def load_csv():
+    return(pd.read_excel("user_table.xlsx"))
+
+def user_PT(m):
+    userid = m.from_user.id
+    user_infor = load_csv()
+    for i in range(len(user_infor)):
+        if userid == user_infor.iloc[i]['ID']:
+            bot.send_message (m.chat.id, f"Введите да если это актуальный номер {user_infor.iloc[i]['user_phone']}")
+            markup = types.ReplyKeyboardMarkup(resize_keyboard= True)
+            item1 = types.KeyboardButton("Да")
+            item2 = types.KeyboardButton("Нет")
+            markup.add(item1,item2)
+        else:
+            bot.send_message(m.chat.id,"Укажите свой номер телефона в формате +7 999 999 99 99")
+    
+            
 def markup_functin(m):
     markup = types.ReplyKeyboardMarkup(resize_keyboard= True)
     item1 = types.KeyboardButton("Подбор запчастей")
@@ -37,15 +47,14 @@ bot =telebot.TeleBot('5547286901:AAHQcefdvwh5KVALdNmjosBKPYLaYXjDpf0')
 #Начало действий бота создаем кнопки и сохраняем данные поп пользователю
 def start(m,res=False):
     userid = m.from_user.id
-    print(userid)
     markup_functin(m)
 
 
 @bot.message_handler(content_types=["text"])
-def handler_text(message):
-    if message.text.strip() == "Подбор запчастей":
-        userid = message.from_user.id
-        user_information(message,userid)
-
+def handler_text(m):
+    if m.text.strip() == "Подбор запчастей":
+        userid = m.from_user.id
+        user_PT(m)
+        
 
 bot.polling(none_stop=True, interval=0)
