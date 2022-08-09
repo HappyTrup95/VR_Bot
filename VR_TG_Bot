@@ -1,27 +1,34 @@
 import telebot
 from telebot import types
 import pandas as pd
-import VR_Bot_Zapch
+import time
 
-
-
-def load_csv():
+def load_xlsx():
     return(pd.read_excel("user_table.xlsx"))
 
 def user_PT(m):
     userid = m.from_user.id
-    user_infor = load_csv()
+    user_infor = load_xlsx()
     for i in range(len(user_infor)):
         if userid == user_infor.iloc[i]['ID']:
-            bot.send_message (m.chat.id, f"Введите да если это актуальный номер {user_infor.iloc[i]['user_phone']}")
-            markup = types.ReplyKeyboardMarkup(resize_keyboard= True)
-            item1 = types.KeyboardButton("Да")
-            item2 = types.KeyboardButton("Нет")
-            markup.add(item1,item2)
-        else:
-            bot.send_message(m.chat.id,"Укажите свой номер телефона в формате +7 999 999 99 99")
-    
             
+            return(user_infor.iloc[i]['user_phone'])
+        else:
+            
+            markup = types.ReplyKeyboardMarkup(resize_keyboard= True)
+            item1 = types.KeyboardButton("Поделиться контактом", request_contact=True)
+            markup.add(item1)
+            bot.send_message(m.chat.id,"Нам необходим ваш номер для связи. "+ 
+                                "Нажмите на кнопку поделиться номером номер или введите его вручную", reply_markup=markup)
+
+def podbor_zpch(m):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard= True)
+    item1 = types.KeyboardButton("Вернуться в начало")
+    markup.add(item1)
+    bot.send_message(m.chat.id,"Напишите название запчасти или артикул(парномер) запчасти или вернуться в начало",reply_markup=markup)
+    time.sleep(120)
+    print(m)        
+               
 def markup_functin(m):
     markup = types.ReplyKeyboardMarkup(resize_keyboard= True)
     item1 = types.KeyboardButton("Подбор запчастей")
@@ -31,9 +38,8 @@ def markup_functin(m):
     item5 = types.KeyboardButton("Позвать оператора")
 
     markup.add(item1)
-    markup.add(item2)
+    markup.add(item2,item4)
     markup.add(item3)
-    markup.add(item4)
     markup.add(item5)
 
     bot.send_message(m.chat.id, 'Нажмите: \nКуда хотите перейти', reply_markup=markup)
@@ -49,12 +55,31 @@ def start(m,res=False):
     userid = m.from_user.id
     markup_functin(m)
 
+#Считываем номер телефона 
+@bot.message_handler(content_types=["contact"])
+def contact(m):
+    phone=m.contact.phone_number
+    return(phone)
 
+
+#Главная функция по обработке сообщений пользователя 
 @bot.message_handler(content_types=["text"])
 def handler_text(m):
+    try:
+        phone = m.text.find('+7')
+    except:
+        phone=-1
+
     if m.text.strip() == "Подбор запчастей":
         userid = m.from_user.id
+
         user_PT(m)
+    
+    elif phone != -1:
+        user_phone=m.text
         
 
+
+  
 bot.polling(none_stop=True, interval=0)
+
