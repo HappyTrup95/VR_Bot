@@ -35,7 +35,7 @@ def register_all_handlers(dp):
     register_purches(dp)
     register_serves(dp)
     register_insurance(dp)
-    register_echo(dp)
+
 
 async def set_all_default_commands(bot):
     await set_default_commands(bot)
