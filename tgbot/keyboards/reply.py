@@ -38,6 +38,10 @@ class Choice_user:
     user_choice.row(KeyboardButton(text="Да"))
     user_choice.row(KeyboardButton(text="Нет"))
 
+class Choice_user_yes:
+    user_choice = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True) 
+    user_choice.row(KeyboardButton(text="Да"))
+
 """Клавиатура для выбора услуг КМЦ"""
 class Bodywork_menu():
     bodywork_choice = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True)

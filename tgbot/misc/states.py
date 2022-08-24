@@ -8,6 +8,7 @@ class Main_states(StatesGroup):
     Q1=State()
     Q1_1=State()
     Q1_2 = State()
+    Q1_3 = State()
 
     """Состояния для работы со сценарием Сервис"""
 
@@ -16,6 +17,7 @@ class Main_states(StatesGroup):
     Q2_2= State()
     Q2_3= State()
     Q2_4= State()
+
 
     """Состояния для работы со сценарием Кузовной сервис"""
 
@@ -31,3 +33,4 @@ class Main_states(StatesGroup):
     Q4_2=State()
     Q4_3=State()
     Q4_4=State()
+    Q4_5=State()
