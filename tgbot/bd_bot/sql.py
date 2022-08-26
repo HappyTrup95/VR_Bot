@@ -30,6 +30,29 @@ def insert_data(id, name, phone):
         print("Connection refused...")
         print(ex)
 
+def update_data(id, name, phone):
+    try:
+        connection = pymysql.connect(
+            host=DB_HOST,
+            port= 3306,
+            user=DB_USER,
+            password=DB_PASS,
+            database=DB_NAME,
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        print("successful")
+
+        try:
+            with connection.cursor() as cursor:
+                update_query = f"UPDATE Users SET  name='{name}', phone_number='{phone}' WHERE ID = {id};"
+                cursor.execute(update_query)
+                connection.commit()
+        finally:
+            connection.close()
+    except Exception as ex:
+        print("Connection refused...")
+        print(ex)
+
 def view_data_id(id):
     try:
         connection = pymysql.connect(
