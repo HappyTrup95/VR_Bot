@@ -3,7 +3,7 @@ from aiogram.types import Message
 from aiogram.types import BotCommandScopeChat
 from aiogram.dispatcher import FSMContext
 
-from tgbot.keyboards.reply import Choice_user_yes, User_phone
+from tgbot.keyboards.reply import Choice_user_yes, User_phone, last_menu
 from tgbot.misc.states import Main_states
 import smtplib as smtp
 from tgbot.handlers.password import E_MAIL_LOGIN, E_MAIL_OUT,E_MAIL_PASSWORD
@@ -41,7 +41,7 @@ async def purches(message: types.Message, state: None):
     if id == message.from_user.id:
         user_name.append(view_data_name(message.from_user.id))
         pur_phon.append(view_data_phone(message.from_user.id))
-        await message.answer(text = "Напишите название запчасти или артикул запчасти")
+        await message.answer(text = "Напишите название запчасти или артикул запчасти",reply_markup=types.ReplyKeyboardRemove())
         await Main_states.Q1_2.set()
     else:   
         text = [
@@ -70,22 +70,22 @@ async def user_contact_text(message: Message, state: FSMContext):
         await message.answer(text = "Неверная команда, попробуйте снова")
 
 async def name_user_yes(message: Message, state: FSMContext):
-    await message.answer(text = "Напишите название запчасти или артикул запчасти")
+    await message.answer(text = "Напишите название запчасти или артикул запчасти",reply_markup=types.ReplyKeyboardRemove())
     user_name.append(message.from_user.first_name)
     await Main_states.Q1_2.set()
 
 async def name_user(message: Message, state: FSMContext):
-    await message.answer(text = "Напишите название запчасти или артикул запчасти")
+    await message.answer(text = "Напишите название запчасти или артикул запчасти",reply_markup=types.ReplyKeyboardRemove())
     user_name.append(message.from_user.first_name)
     await Main_states.Q1_2.set()
 
 async def name_purches(message: Message, state: FSMContext):
-    await message.answer(text = "Для подбора автозапчасти необходим VIN номер автомобиля. Введите пожайлуста.")
+    await message.answer(text = "Для подбора автозапчасти необходим VIN номер автомобиля. Введите пожайлуста.",reply_markup=types.ReplyKeyboardRemove())
     articul.append(message.text)
     await Main_states.Q1_3.set()
 
 async def purches_end(message: Message, state: FSMContext):
-    await message.answer(text = "Наш специалист проверит наличие или возможность заказа запчасти и связжеться с Вами.\n Для возврата нажмите /start")
+    await message.answer(text = "Наш специалист проверит наличие или возможность заказа запчасти и связжеться с Вами.\n Для возврата нажмите /start", reply_markup= last_menu.choice)
     VIN.append(message.text)
     await state.finish()
     text = f"Сообщение: Телеграм Бот;\r\n Работы : ОЗПЧ;\r\n  Имя клиента: {user_name[0]};\r\n  телефон: {pur_phon[0]};\r\n Название запчасти или артикул запчасти: {articul[0]};\r\n VIN номер автомобиля: {VIN[0]};\r\n"

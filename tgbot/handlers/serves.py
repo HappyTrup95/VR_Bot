@@ -7,7 +7,7 @@ from environs import Env
 from tgbot.config import Config, TgBot
 
 from tgbot.misc.states import Main_states
-from tgbot.keyboards.reply import Serves_menu,User_phone, STO, Choice_user_yes
+from tgbot.keyboards.reply import Serves_menu,User_phone, STO, Choice_user_yes, last_menu
 import smtplib as smtp
 from tgbot.handlers.password import E_MAIL_LOGIN, E_MAIL_OUT,E_MAIL_PASSWORD
 from tgbot.bd_bot.sql import  insert_data, view_data_id, view_data_phone, view_data_name
@@ -94,7 +94,7 @@ async def user_registor(message: types.Message, state: FSMContext):
     text = [
         "Укажите, в какое время хотели бы приехать:",
     ]   
-    await message.answer('\n'.join(text))
+    await message.answer('\n'.join(text), reply_markup=types.ReplyKeyboardRemove())
     await Main_states.Q2_3.set() 
 
 async def time_registr(message: types.Message, state: FSMContext):
@@ -102,7 +102,7 @@ async def time_registr(message: types.Message, state: FSMContext):
     text = [
         "Укажите, в какое время хотели бы приехать:",
     ]   
-    await message.answer('\n'.join(text))
+    await message.answer('\n'.join(text), reply_markup=types.ReplyKeyboardRemove())
     await Main_states.Q2_3.set() 
 
 async def serves_sto(message: types.Message, state: FSMContext):
@@ -135,12 +135,12 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
         "Мы отправили ваши данные оператору\n",
         "Для возварашения в начало нажмите /start"
         ]        
-    await message.answer('\n'.join(text))
+    await message.answer('\n'.join(text), reply_markup= last_menu.choice)
     id = view_data_id(message.from_user.id)
     if id != message.from_user.id:
         insert_data(message.from_user.id,user_name[0],ser_phone[0])
     text = f"Сообщение:Запись на сервис\n Работы : {working[0]}\n Ваше имя: {user_name[0]}\n Ваш телефон: {ser_phone[0]}\n Запись на: {time[0]}\n Адресс: {adress[0]}\n"
-    
+    await state.finish()
     text=str(text)
     send_email(text)
     

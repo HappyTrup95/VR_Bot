@@ -6,7 +6,7 @@ async def set_default_commands(bot: Bot):
     return await bot.set_my_commands(
         commands=[
         BotCommand('start', 'Вернуться в начало'),
-        BotCommand('help', 'Помошь'),
+        BotCommand('regist', 'Поменять данные о себе'),
         BotCommand('operator','Позвать оператора')
         ],
     )

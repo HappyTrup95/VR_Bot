@@ -34,3 +34,7 @@ class Main_states(StatesGroup):
     Q4_3=State()
     Q4_4=State()
     Q4_5=State()
+
+    """Состояния для работы с регестрацией"""
+    Q5 = State()
+    Q5_1=State()

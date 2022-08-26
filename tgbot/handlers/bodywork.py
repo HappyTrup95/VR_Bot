@@ -4,7 +4,7 @@ from aiogram.types import BotCommandScopeChat
 from aiogram.dispatcher import FSMContext
 
 from tgbot.misc.states import Main_states
-from tgbot.keyboards.reply import Bodywork_menu, User_phone, Choice_user_yes
+from tgbot.keyboards.reply import Bodywork_menu, User_phone, Choice_user_yes, last_menu
 import smtplib as smtp
 
 from tgbot.handlers.password import E_MAIL_LOGIN, E_MAIL_OUT,E_MAIL_PASSWORD
@@ -103,7 +103,7 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
         "Мы отправили ваши данные оператору\n",
         "Для возварашения в начало нажмите /start"
         ]
-    await message.answer('\n'.join(text))
+    await message.answer('\n'.join(text), reply_markup= last_menu.choice)
     text = f"Сообщение: Кузовной ремонт;\n Работы : {working[0]};\n Ваше имя: {user_name[0]};\n Ваш телефон: {ser_phone[0]};\n Запись на: {time[0]};\n Адресс: {adress[0]};\n"
     text=str(text)
 
@@ -112,7 +112,7 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
         insert_data(message.from_user.id,user_name[0],ser_phone[0])
 
     send_email(text)
-
+    await state.finish()
     working.clear()
     user_name.clear()
     ser_phone.clear()

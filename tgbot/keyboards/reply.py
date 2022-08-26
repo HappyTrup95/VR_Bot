@@ -73,6 +73,26 @@ class Insurance_choice():
     incurance_choice.row(KeyboardButton(text="Не уверен"))
     incurance_choice.row(KeyboardButton(text="Нет"))
 
+"""Итоговая клавиатура"""
+class last_menu():
+    choice = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True)
+
+    choice.row(KeyboardButton(text="Выбрать услугу"))
+    choice.row(KeyboardButton(text="Позвать оператора"))
+
+
+class User_data_menu():
+    choice = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True)
+
+    choice.row(KeyboardButton(text="Перезаполнить"))
+    choice.row(KeyboardButton(text="Оставляем"))
+
+
+class New_user_menu():
+    choice = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True)
+
+    choice.row(KeyboardButton(text="Заполнить"))
+    choice.row(KeyboardButton(text="Нет, позже"))
  
 
  
