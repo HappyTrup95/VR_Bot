@@ -7,6 +7,7 @@ class Main_menu():
     main_choice.row(KeyboardButton(text="Автосервис"))
     main_choice.row(KeyboardButton(text="Кузовной ремонт"))
     main_choice.row(KeyboardButton(text="Автостраховка"))
+    main_choice.row(KeyboardButton(text="Позвать оператора"))
 
 """Клавиатура для выбора услуг сервиса"""
 class Serves_menu():
@@ -14,7 +15,7 @@ class Serves_menu():
 
     serves_choice.row(KeyboardButton(text="Шиномонтаж"))
     serves_choice.row(KeyboardButton(text="Мойка"))
-    serves_choice.row(KeyboardButton(text="Диагностика подвестки"))
+    serves_choice.row(KeyboardButton(text="Диагностика подвески"))
     serves_choice.row(KeyboardButton(text="Компьютерная диагностика"))
     serves_choice.row(KeyboardButton(text="Развал схождение"))
     serves_choice.row(KeyboardButton(text="Записаться на ремонт"))  
@@ -46,9 +47,9 @@ class Choice_user_yes:
 class Bodywork_menu():
     bodywork_choice = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True)
 
-    bodywork_choice.row(KeyboardButton(text="Полировка"))
-    bodywork_choice.row(KeyboardButton(text="Покраска"))
-    bodywork_choice.row(KeyboardButton(text="Другие работы"))
+    bodywork_choice.row(KeyboardButton(text="Кузовные детали: разрушение, царапина, деформация"))
+    bodywork_choice.row(KeyboardButton(text="Остекление, световые приборы"))
+    bodywork_choice.row(KeyboardButton(text="Прочие детали(хромированые, пластиковые неокрашеные, уплотнители и т.д)"))
 
 """Клавиатура для выбора услуг Страховой"""
 class Insurance_menu():

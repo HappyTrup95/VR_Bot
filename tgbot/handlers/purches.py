@@ -38,6 +38,10 @@ def send_email(text):
 
 async def purches(message: types.Message, state: None):
     id = view_data_id(message.from_user.id)
+    user_name.clear()
+    pur_phon.clear()
+    articul.clear()
+    VIN.clear()
     if id == message.from_user.id:
         user_name.append(view_data_name(message.from_user.id))
         pur_phon.append(view_data_phone(message.from_user.id))
@@ -85,7 +89,7 @@ async def name_purches(message: Message, state: FSMContext):
     await Main_states.Q1_3.set()
 
 async def purches_end(message: Message, state: FSMContext):
-    await message.answer(text = "Наш специалист проверит наличие или возможность заказа запчасти и связжеться с Вами.\n Для возврата нажмите /start", reply_markup= last_menu.choice)
+    await message.answer(text = "Наш специалист проверит наличие или возможность заказа запчасти и связжеться с Вами.\n Для возврата в начало нажмите /start", reply_markup= last_menu.choice)
     VIN.append(message.text)
     await state.finish()
     text = f"Сообщение: Телеграм Бот;\r\n Работы : ОЗПЧ;\r\n  Имя клиента: {user_name[0]};\r\n  телефон: {pur_phon[0]};\r\n Название запчасти или артикул запчасти: {articul[0]};\r\n VIN номер автомобиля: {VIN[0]};\r\n"
@@ -93,7 +97,7 @@ async def purches_end(message: Message, state: FSMContext):
     if id != message.from_user.id:
         insert_data(message.from_user.id,user_name[0],pur_phon[0])
     text=str(text)
-    send_email(text)
+    #send_email(text)
     user_name.clear()
     pur_phon.clear()
     articul.clear()

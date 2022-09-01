@@ -5,8 +5,8 @@ from aiogram.utils.markdown import hcode
 
 async def bot_echo(message: types.Message):
     text = [
-        "Эхо без состояния.",
-        "Сообщение:",
+        "Что-то не так",
+        "Нажмите /start",
         message.text
     ]
 
@@ -14,10 +14,10 @@ async def bot_echo(message: types.Message):
 
 
 async def bot_echo_all(message: types.Message, state: FSMContext):
-    state_name = await state.get_state()
+   
     text = [
-        f'Эхо в состоянии {hcode(state_name)}',
-        'Содержание сообщения:',
+        'Что-то не так',
+        'Нажмите /start',
         hcode(message.text)
     ]
     await message.answer('\n'.join(text))

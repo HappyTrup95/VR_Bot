@@ -13,7 +13,6 @@ from tgbot.bd_bot.sql import  insert_data, view_data_id, view_data_phone, view_d
 ser_phone = []
 time = []
 user_name = []
-adress = ["г. Волгоград, ул. Землячки 82г"]
 working = []
 
 def send_email(text):
@@ -39,9 +38,13 @@ def send_email(text):
 
 async def bodywork(message: types.Message, state: None):
     text = [
-        "выберете услугу",
+        "Выберите повреждение",
 
     ]
+    working.clear()
+    user_name.clear()
+    ser_phone.clear()
+    time.clear()
     await message.answer('\n'.join(text), reply_markup=Bodywork_menu.bodywork_choice )
     await Main_states.Q3.set()
 
@@ -99,25 +102,24 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
         f"Ваше имя:{user_name[0]}\n",
         f"Ваш телефон: {ser_phone[0]}\n"
         f"Запись на:{time[0]}\n",
-        f"Адресс: {adress[0]}\n",
+        f"Адресс: г. Волгоград, ул. Землячки 82г\n",
         "Мы отправили ваши данные оператору\n",
-        "Для возварашения в начало нажмите /start"
+        "Для возвращения в начало нажмите /start"
         ]
     await message.answer('\n'.join(text), reply_markup= last_menu.choice)
-    text = f"Сообщение: Кузовной ремонт;\n Работы : {working[0]};\n Ваше имя: {user_name[0]};\n Ваш телефон: {ser_phone[0]};\n Запись на: {time[0]};\n Адресс: {adress[0]};\n"
+    text = f"Сообщение: Кузовной ремонт;\n Работы : {working[0]};\n Ваше имя: {user_name[0]};\n Ваш телефон: {ser_phone[0]};\n Запись на: {time[0]};\n Адресс: Адресс: г. Волгоград, ул. Землячки 82г;\n"
     text=str(text)
 
     id = view_data_id(message.from_user.id)
     if id != message.from_user.id:
         insert_data(message.from_user.id,user_name[0],ser_phone[0])
 
-    send_email(text)
+    #send_email(text)
     await state.finish()
     working.clear()
     user_name.clear()
     ser_phone.clear()
     time.clear()
-    adress.clear()
 
 def register_bodywork(dp: Dispatcher):
     dp.register_message_handler(bodywork, state='*', text=["Кузовной ремонт"])

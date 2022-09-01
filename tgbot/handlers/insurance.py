@@ -39,6 +39,12 @@ def send_email(text):
 
 async def insurance(message: types.Message, state: None):
     text = ["Выберете услугу"]
+    working.clear()
+    user_name.clear()
+    ser_phone.clear()
+    place.clear()
+    adress.clear()
+    avto.clear()
     await message.answer('\n'.join(text), reply_markup=Insurance_menu.incurance_choice )
     await Main_states.Q4.set()
 
@@ -99,14 +105,14 @@ async def name_insuranse(message: types.Message, state: FSMContext):
 
 async def name_insuranse1(message: types.Message, state: FSMContext):
     avto.append(message.text)
-    await message.answer(text = "Отлично! Всё готово\n Я передам всю информацию нашему сотруднику в отдел страхования. А он с вами свяжеться и все подробно расскажет.\n Для возврата нажмите /start", reply_markup= last_menu.choice)
+    await message.answer(text = "Отлично! Всё готово\n Я передам всю информацию нашему сотруднику в отдел страхования. А он с вами свяжеться и все подробно расскажет.\n Если хотите вернуться в начало нажмите /start", reply_markup= last_menu.choice)
     text = f"Сообщение: Страховка;\n Работы : {working[0]};\n Имя клиента: {user_name[0]};\n телефон: {ser_phone[0]};\n Регистрация: {place[0]};\n Адресс: {adress[0]};\n Марка авто: {avto[0]};\n"
     
     id = view_data_id(message.from_user.id)
     if id != message.from_user.id:
         insert_data(message.from_user.id,user_name[0],ser_phone[0])
     await state.finish()
-    send_email(text)
+    #send_email(text)
 
     working.clear()
     user_name.clear()

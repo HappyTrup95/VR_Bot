@@ -1,3 +1,4 @@
+from cgitb import text
 from distutils.command.config import config
 from aiogram import types, Dispatcher
 from aiogram.types import Message
@@ -48,6 +49,11 @@ async def serves(message: types.Message, state: None):
 
     ]
     await message.answer('\n'.join(text), reply_markup=Serves_menu.serves_choice )
+    working.clear()
+    user_name.clear()
+    ser_phone.clear()
+    time.clear()
+    adress.clear()
     await Main_states.Q2.set()
 
 async def user_phone_serves(message: types.Message, state: FSMContext):
@@ -133,7 +139,7 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
         f"Запись на: {time[0]}\n",
         f"Адресс: {adress[0]}\n",
         "Мы отправили ваши данные оператору\n",
-        "Для возварашения в начало нажмите /start"
+        "Для возвращения в начало нажмите /start"
         ]        
     await message.answer('\n'.join(text), reply_markup= last_menu.choice)
     id = view_data_id(message.from_user.id)
@@ -142,7 +148,7 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
     text = f"Сообщение:Запись на сервис\n Работы : {working[0]}\n Ваше имя: {user_name[0]}\n Ваш телефон: {ser_phone[0]}\n Запись на: {time[0]}\n Адресс: {adress[0]}\n"
     await state.finish()
     text=str(text)
-    send_email(text)
+    #send_email(text)
     
     working.clear()
     user_name.clear()
