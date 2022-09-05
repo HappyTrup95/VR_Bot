@@ -1,7 +1,5 @@
 from distutils.command.config import config
 from multiprocessing.connection import Connection
-from select import select
-from unicodedata import name
 import pymysql
 from tgbot.bd_bot.db_loger import DB_USER, DB_HOST,DB_NAME,DB_PASS
 
