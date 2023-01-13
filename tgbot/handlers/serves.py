@@ -148,7 +148,7 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
     text = f"Сообщение:Запись на сервис\n Работы : {working[0]}\n Ваше имя: {user_name[0]}\n Ваш телефон: {ser_phone[0]}\n Запись на: {time[0]}\n Адресс: {adress[0]}\n"
     await state.finish()
     text=str(text)
-    #send_email(text)
+    send_email(text)
     
     working.clear()
     user_name.clear()

@@ -114,7 +114,7 @@ async def user_date_serves(message: types.Message, state: FSMContext,):
     if id != message.from_user.id:
         insert_data(message.from_user.id,user_name[0],ser_phone[0])
 
-    #send_email(text)
+    send_email(text)
     await state.finish()
     working.clear()
     user_name.clear()

@@ -16,6 +16,7 @@ from tgbot.handlers.insurance import register_insurance
 from tgbot.handlers.purches import register_purches
 from tgbot.handlers.serves import register_serves
 from tgbot.handlers.registr import register_user_change
+from tgbot.handlers.status import register_status
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.environment import EnvironmentMiddleware
 from tgbot.services.main_commands import set_default_commands
@@ -36,8 +37,10 @@ def register_all_handlers(dp):
     register_bodywork(dp)
     register_purches(dp)
     register_serves(dp)
+    register_status(dp)
     register_insurance(dp)
     register_echo(dp)
+    
 
 async def set_all_default_commands(bot):
     await set_default_commands(bot)

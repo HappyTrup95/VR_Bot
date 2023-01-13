@@ -4,3 +4,4 @@ environs~=9.0
 smtplib
 python-dotenv
 pymysql
+request

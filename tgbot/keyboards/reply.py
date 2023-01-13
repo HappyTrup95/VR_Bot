@@ -1,5 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 """Клавиатура для выбора сценариев"""
+
 class Main_menu():
     main_choice = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True)
 
@@ -8,6 +9,7 @@ class Main_menu():
     main_choice.row(KeyboardButton(text="Кузовной ремонт"))
     main_choice.row(KeyboardButton(text="Автостраховка"))
     main_choice.row(KeyboardButton(text="Позвать оператора"))
+    main_choice.row(KeyboardButton(text="Статус ремонта"))
 
 """Клавиатура для выбора услуг сервиса"""
 class Serves_menu():
@@ -32,6 +34,10 @@ class STO:
     sto.row(KeyboardButton(text="Рено"))
     sto.row(KeyboardButton(text="Хонда, Уаз"))
     sto.row(KeyboardButton(text="Джили"))
+
+class STO1:
+    sto = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard= True)
+    sto.row(KeyboardButton(text="GEELY"))
 
 """Клавиатура для выбора ответов Да или Нет"""
 class Choice_user:
